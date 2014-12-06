@@ -7,7 +7,6 @@ var touristGuide = {
     this.submitSearch();
     //console.log('init!!!');
   },
-
   params: function () {
     //id: "/travel/tourist_attraction"
    return { "domain": "travel",
