@@ -35,7 +35,6 @@ var touristGuide = {
     $.getJSON(this.serviceUrl + '?callback=?', this.params(), function(topic) {
       var imageUrl = "";
       $.each(topic.result, function(i, val) {
-        //  /* iterate through array or object */
         touristGuide.getTopic(val.id);
       });
     });
@@ -44,19 +43,19 @@ var touristGuide = {
   //method to get topic
   getTopic: function (topicId) {
     $.getJSON(this.topicUrl + topicId + '?callback=?', null, function (topic) {
+      console.log(topic);
       if (topic.property['/common/topic/image']) {
         imageUrl = topic.property['/common/topic/image'].values[0].id;
-      }      
-        // console.log(imageUrl);
-        touristGuide.topicHTML = '<li> <img src="https://usercontent.googleapis.com/freebase/v1/image' + imageUrl + '"> </li>';
-        console.log(touristGuide.topicHTML);
+        touristGuide.topicHTML = '<li> <img src="https://usercontent.googleapis.com/freebase/v1/image' + imageUrl + '?maxwidth=225&maxheight=225&mode=fillcropmid"> </li>';
+      } else {
+        touristGuide.topicHTML = '<li></li>';
+      }     
+        // console.log(touristGuide.topicHTML);
         touristGuide.showTopic(touristGuide.topicHTML);
-         // console.log({text:value['/type/object/name']});
-         // console.log(val['/common/topic/image'].count);
-      //    $('<div>',{text:val['/common/topic/image'].values[0].text}).appendTo($('view'));
     });
   },
 
+  //displays topic from JSON load into the page
   showTopic: function (display) {
     $('#display').append(display);
   }
