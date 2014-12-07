@@ -49,7 +49,7 @@ var touristGuide = {
         imageUrl = topic.property['/common/topic/image'].values[0].id;
         touristGuide.topicHTML = '<li class="clearfix"> <img src="https://usercontent.googleapis.com/freebase/v1/image' + imageUrl + '?maxwidth=225&maxheight=225&mode=fillcropmid">';
       } else {
-        touristGuide.topicHTML = '<li>';
+        touristGuide.topicHTML = '<li class="clearfix">';
       }
 
       if (topic.property['/type/object/name']) {
