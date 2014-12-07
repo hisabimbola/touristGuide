@@ -10,19 +10,38 @@
   </head>
   <body>
     <div id="wrapper">
-      <section id="leftcol"></section>
-      <main>
-        <form id="app" action="">
-          <input type="text" id="search" autofocus><br />
-          <button id="submit">Submit</button>
-        </form>
-        <div id="view">
-          <ul id="display">
-
+      <header class="clearfix">
+        <img src="img/globe.PNG" alt="globe">
+        <h1>Welcome to TourRef</h1>
+        <p>Your favourite tourist Reference</p>
+        <nav>
+          <ul>
+            <li>Home</li>
+            <li>Contact</li>
           </ul>
-        </div>
-      </main>
-      <section id="rightcol"></section>
+        </nav>
+      </header>
+      <div>
+        <section id="leftcol"></section>
+        <main>
+          <div>
+            <p id="topInfo">
+              Enter a city or country to see the top tourist attractions in the location
+            </p>
+          </div>
+          <form id="app" action="">
+            <input type="text" id="search" autofocus>
+            <button>Submit</button>
+          </form>
+          <div id="view">
+            <ul id="display">
+
+            </ul>
+          </div>
+        </main>
+        <section id="rightcol"></section>
+      </div>
+      <footer></footer>
     </div>
   </body>
 </html>
