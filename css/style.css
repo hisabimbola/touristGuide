@@ -1,0 +1,19 @@
+
+body {
+  width: 100%;
+}
+
+#leftcol {
+  width: 25%;
+}
+
+main {
+  text-align: center;
+  width: 50%;
+  margin: 0 auto;
+  border: 1px solid;
+}
+
+#rightcol {
+  width: 25%;
+}

@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="js/app.js"></script>
   </head>
   <body>
-    <form id="app">
-      <input type="text" id="search" autofocus>
-      <button id="submit">Submit</button>
-    </form>
-    <div id="view"></div>
+    <div id="wrapper">
+      <section id="leftcol"></section>
+      <main>
+        <form id="app">
+          <input type="text" id="search" autofocus><br />
+          <button id="submit">Submit</button>
+        </form>
+        <div id="view">
+          <ul id="display"></ul>
+        </div>
+      </main>
+      <section id="rightcol"></section>
+    </div>
   </body>
 </html>
+
