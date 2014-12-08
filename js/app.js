@@ -15,7 +15,8 @@ var touristGuide = {
    return { "domain": "travel",
     'query': this.searchValue,
     'type': '/travel/tourist_attraction',
-    'indent': true //for nice indented JSON format, needed for development only
+    'indent': true, //for nice indented JSON format, needed for development only
+    // 'exact': true
     };
   },
 
@@ -25,7 +26,8 @@ var touristGuide = {
     $('#app').submit(function (evt) {
       evt.preventDefault();
       touristGuide.searchValue = $('#search').val();
-      console.log(touristGuide.searchValue);
+      // console.log(touristGuide.searchValue);
+      $('#display').empty();
       touristGuide.getJson();
     });
   },
@@ -44,31 +46,27 @@ var touristGuide = {
   getTopic: function (topicId) {
     $.getJSON(this.topicUrl + topicId + '?callback=?', null, function (topic) {
       console.log(topic);
-
-      if (topic.property['/common/topic/image']) {
-        imageUrl = topic.property['/common/topic/image'].values[0].id;
-        touristGuide.topicHTML = '<li class="clearfix"> <img src="https://usercontent.googleapis.com/freebase/v1/image' + imageUrl + '?maxwidth=225&maxheight=225&mode=fillcropmid">';
-      } else {
-        touristGuide.topicHTML = '<li class="clearfix">';
-      }
-
-      if (topic.property['/type/object/name']) {
-        topicTitle = topic.property['/type/object/name'].values[0].text;
-        touristGuide.topicHTML += '<h3>' + topicTitle + '</h3>';
-      }
-      if (topic.property['/common/topic/description']) {
-        topicDesc = topic.property['/common/topic/description'].values[0].value;
-        touristGuide.topicHTML += '<p>' + topicDesc + '</p> </li>';
-      }
-      // if (topic.property['/common/topic/image']) {
-      //   imageUrl = topic.property['/common/topic/image'].values[0].id;
-      //   touristGuide.topicHTML = '<li> <img src="https://usercontent.googleapis.com/freebase/v1/image' + imageUrl + '?maxwidth=225&maxheight=225&mode=fillcropmid"> </li>';
-      // } else {
-      //   touristGuide.topicHTML = '<li></li>';
-      // }     
-        // console.log(touristGuide.topicHTML);
-        touristGuide.showTopic(touristGuide.topicHTML);
+      touristGuide.buildTopic(topic);
     });
+  },
+
+  buildTopic: function (topic) {
+    if (topic.property['/common/topic/image']) {
+      imageUrl = topic.property['/common/topic/image'].values[0].id;
+      touristGuide.topicHTML = '<li class="clearfix"> <img src="https://usercontent.googleapis.com/freebase/v1/image' + imageUrl + '?maxwidth=225&maxheight=225&mode=fillcropmid">';
+    } else {
+      touristGuide.topicHTML = '<li class="clearfix">';
+    }
+
+    if (topic.property['/type/object/name']) {
+      topicTitle = topic.property['/type/object/name'].values[0].text;
+      touristGuide.topicHTML += '<h3>' + topicTitle + '</h3>';
+    }
+    if (topic.property['/common/topic/description']) {
+      topicDesc = topic.property['/common/topic/description'].values[0].value;
+      touristGuide.topicHTML += '<p>' + topicDesc + '</p> </li>';
+    }
+      touristGuide.showTopic(touristGuide.topicHTML);
   },
 
   //displays topic from JSON load into the page
