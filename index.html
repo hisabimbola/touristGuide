@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tourist Guide | Built by Idowu Abimbola</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link href='http://fonts.googleapis.com/css?family=Alef|Quantico:700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+  </head>
+  <body>
+    <div id="wrapper">
+      <header class="clearfix">
+        <img src="img/globe.PNG" alt="globe">
+        <h1>Welcome to TourRef</h1>
+        <p>Your favourite tourist Reference</p>
+        <nav>
+          <ul>
+            <li>Home</li>
+            <li>Contact</li>
+          </ul>
+        </nav>
+      </header>
+      <div id="main_container">
+        <section id="leftcol"></section>
+        <main>
+          <div>
+            <p id="topInfo">
+              Enter a city or country to see the top tourist attractions in the location.
+            </p>
+          </div>
+          <form id="app" action="">
+            <input type="text" id="search" autofocus>
+            <button>Submit</button>
+          </form>
+          <div id="view">
+            <img src="img/loading.gif" id="loadingImage">
+            <ul id="display">
+            </ul>
+          </div>
+          <div id="nextPage"><a href="#">&lt;&lt;&lt;Next Page&gt;&gt;&gt;</a></div>
+        </main>
+        <section id="rightcol"></section>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>
+
