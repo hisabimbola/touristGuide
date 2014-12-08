@@ -5,7 +5,7 @@ html {
 #loadingImage {
   margin-top: 20%;
   height: 45px;
-  width: 70%;
+  width: 7D0%;
 }
 
 body {
@@ -116,6 +116,15 @@ main {
   margin-left: 2%;
   font-weight: 600;
   padding: 0.7% 3%
+}
+#display hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 3px solid #ccc;
+    border-bottom: 3px solid #000;
+    margin: 1em 0;
+    padding: 0;
 }
 #rightcol {
   width: 20%;

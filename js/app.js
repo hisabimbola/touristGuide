@@ -80,7 +80,7 @@ var touristGuide = {
     }
     if (topic.property['/common/topic/description']) {
       topicDesc = topic.property['/common/topic/description'].values[0].value;
-      touristGuide.topicHTML += '<p>' + topicDesc + '</p> </li>';
+      touristGuide.topicHTML += '<p>' + topicDesc + '</p> </li> <hr />';
     }
       touristGuide.showTopic(touristGuide.topicHTML);
   },
