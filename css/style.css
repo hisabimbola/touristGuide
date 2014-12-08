@@ -160,3 +160,11 @@ main {
   max-width: 65%;
   color: #38298A;
 }
+
+#pagination {
+  margin: 4% auto;
+}
+
+#pagination a {
+  margin-right: 5%;
+}

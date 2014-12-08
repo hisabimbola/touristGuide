@@ -12,6 +12,7 @@ var touristGuide = {
     $('#loadingImage').hide();    
     this.submitSearch();
     touristGuide.nextPage();
+    $('#nextPage').hide();
 
   },
   //validates user input against symbols, allows only alp, numbers and _
@@ -41,20 +42,20 @@ var touristGuide = {
   fixCursor: function(data) {
     if (data.cursor) {
       this.cursorValue += 10;
+      $('#nextPage').show();
       console.log('next page');
     } else {
-      
       console.log('reached else');
-      $('#nextPage').off('click');
-      console.log('clicked off');
-      $('#nextPage').on('click', function(event) {
-          /* Act on the event */
-          console.log('one more click');
-          event.preventDefault();
-          touristGuide.getJson();
+      // console.log('clicked off');
+      $('#nextPage').one('click', function(event) {
+      //     /* Act on the event */
+      //     console.log('one more click');
+        event.preventDefault();
         $('#nextPage').hide();
+      //     touristGuide.getJson();
+      //   $('#nextPage').hide();
       });
-      this.cursorValue = 0;
+      // this.cursorValue = 0;
     }
   },
   //gets user input
