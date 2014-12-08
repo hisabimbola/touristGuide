@@ -21,6 +21,7 @@ var touristGuide = {
     'type': '/travel/tourist_attraction',
     'indent': true, //for nice indented JSON format, needed for development only
     // 'exact': true
+    'limit': 10
     };
   },
 
