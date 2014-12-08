@@ -12,7 +12,9 @@ var touristGuide = {
     $('#loadingImage').hide();    
     this.submitSearch();
     touristGuide.nextPage();
+    touristGuide.previousPage();
     $('#nextPage').hide();
+    $('#previousPage').hide();
 
   },
   //validates user input against symbols, allows only alp, numbers and _
@@ -39,34 +41,34 @@ var touristGuide = {
     };
   },
 
-  fixCursor: function(data) {
-    if (data.cursor) {
-      this.cursorValue += 10;
-      $('#nextPage').show();
-      console.log('next page');
-    } else {
-      console.log('reached else');
-      // console.log('clicked off');
-      $('#nextPage').one('click', function(event) {
-      //     /* Act on the event */
-      //     console.log('one more click');
-        event.preventDefault();
-        $('#nextPage').hide();
-      //     touristGuide.getJson();
-      //   $('#nextPage').hide();
-      });
-      // this.cursorValue = 0;
-    }
-  },
+  //set value for the set page, and disables next button, if no next page
+
   //gets user input
   submitSearch: function () {
     // console.log('submitSearch');
     $('#app').submit(function (evt) {
       evt.preventDefault();
+      touristGuide.cursorValue = 0;
       touristGuide.validateInput($('#search').val());
+      // setCursorValue(true);
     });
   },
 
+  fixCursor: function(data) {
+    if (data.cursor) {
+      $('#nextPage').show();
+    } else {
+      $('#nextPage').off('click');
+      $('#nextPage').one('click', function(event) {
+        event.preventDefault();
+        console.log(touristGuide.cursorValue);
+        touristGuide.getJson();
+      // touristGuide.setCursorValue(false);
+        $('#nextPage').hide();
+      });
+    }
+  },
+  
   //makes json call
   getJson: function () {
     $('#display').empty();
@@ -110,16 +112,36 @@ var touristGuide = {
 
   //displays topic from JSON load into the page
   showTopic: function (display) {
-    // $(display).addClass('clearfix');
     $('#loadingImage').hide();
     $('#display').append(display);
   },
 
+  setCursorValue: function (boolean) {
+    if (boolean) {
+      this.cursorValue += 10;
+    } else {
+      this.cursorValue -= 10;
+    }
+  },
   nextPage: function () {
     $('#nextPage').click(function(event) {
       event.preventDefault();
-      /* Act on the event */
+      touristGuide.setCursorValue(true);
       touristGuide.getJson();
+      console.log(touristGuide.cursorValue);
+      $('#previousPage').show();
+    });
+  },
+
+  previousPage: function () {
+    $('#previousPage').click(function (event) {
+      event.preventDefault();
+      touristGuide.setCursorValue(false);
+      touristGuide.getJson();
+      if (touristGuide.cursorValue === 0) {
+        $('#previousPage').hide();
+      }
+      console.log(touristGuide.cursorValue);
     });
   }
 };
