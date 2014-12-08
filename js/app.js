@@ -19,7 +19,7 @@ var touristGuide = {
   },
   //validates user input against symbols, allows only alp, numbers and _
   validateInput: function (input) {
-    var test = /\W/.test(input);
+    var test = /[^-_a-zA-Z ]/.test(input);
     if (!test) {
       this.searchValue = input;
       this.getJson();
