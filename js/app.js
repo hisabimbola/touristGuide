@@ -12,14 +12,10 @@ var touristGuide = {
     this.submitSearch();
 
   },
-
+  //validates user input against symbols, allows only alp, numbers and _
   validateInput: function (input) {
-    // var input = $('#search').val();
-    console.log(input);
     var test = /\W/.test(input);
-    console.log(test);
     if (!test) {
-      console.log(test);
       this.searchValue = input;
       this.getJson();
     } else {
@@ -28,13 +24,15 @@ var touristGuide = {
   },
   //params in method, because searchValue depends on search from user
   params: function () {
-   return { "domain": "travel",
-   'key': 'AIzaSyAIoCIVP399FSK6l5imEndmTlxYdPC3JeE',
+   return { 
+    "domain": "travel",
+    'key': 'AIzaSyAIoCIVP399FSK6l5imEndmTlxYdPC3JeE',
     'query': this.searchValue,
     'type': '/travel/tourist_attraction',
     'indent': true, //for nice indented JSON format, needed for development only
     // 'exact': true
-    'limit': 10
+    'limit': 10,
+    
     };
   },
 
@@ -52,6 +50,7 @@ var touristGuide = {
     $('#display').empty();
     $('#loadingImage').show();
     $.getJSON(this.serviceUrl + '?callback=?', this.params(), function(topic) {
+      console.log(topic);
       var imageUrl = "", topicTitle = "", topicDesc = "";
       $.each(topic.result, function(i, val) {
         touristGuide.getTopic(val.id);
@@ -62,7 +61,7 @@ var touristGuide = {
   //method to get topic
   getTopic: function (topicId) {
     $.getJSON(this.topicUrl + topicId + '?callback=?', null, function (topic) {
-      console.log(topic);
+      // console.log(topic);
       touristGuide.buildTopic(topic);
     });
   },
@@ -89,7 +88,7 @@ var touristGuide = {
   //displays topic from JSON load into the page
   showTopic: function (display) {
     // $(display).addClass('clearfix');
-    $('#loadingImage').show();
+    $('#loadingImage').hide();
     $('#display').append(display);
   }
 };
