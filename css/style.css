@@ -47,7 +47,7 @@ header img:before {
 header h1 {
   display: inline-block;
   font-size: 200%;
-  margin: 2.6% 0 0% 2%;
+  margin: 2.6% 0 0 2%;
 }
 header p {
   margin: 0.4% 0 2% 20%;
@@ -60,9 +60,6 @@ nav {
   margin: 2 0 0 0;
 }
 
-nav ul {
-  
-}
 
 nav li {
   display: inline-block;
