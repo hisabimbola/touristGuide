@@ -4,7 +4,7 @@ var touristGuide = {
   searchValue: null,
   topicHTML: "",
   baseUrl: "https://www.freebase.com/",
-  serviceUrl: 'https://www.googleapis.com/freebase/v1/search', //base endpoint for the search service
+  searchUrl: 'https://www.googleapis.com/freebase/v1/search', //base endpoint for the search service
   topicUrl: 'https://www.googleapis.com/freebase/v1/topic', //base endpoint for the search service
   cursorValue: 0,
 
@@ -22,7 +22,7 @@ var touristGuide = {
     var test = /[^-_a-zA-Z ]/.test(input);
     if (!test) {
       this.searchValue = input;
-      this.getJson();
+      this.searchAPI();
     } else {
       $('#topInfo').text('Please enter a valid city or country name, numbers and symbols are not allowed!');
     }
@@ -45,7 +45,6 @@ var touristGuide = {
 
   //gets user input
   submitSearch: function () {
-    // console.log('submitSearch');
     $('#app').submit(function (evt) {
       evt.preventDefault();
       touristGuide.cursorValue = 0;
@@ -61,8 +60,7 @@ var touristGuide = {
       $('#nextPage').off('click');
       $('#nextPage').one('click', function(event) {
         event.preventDefault();
-        console.log(touristGuide.cursorValue);
-        touristGuide.getJson();
+        touristGuide.searchAPI();
       // touristGuide.setCursorValue(false);
         $('#nextPage').hide(function () {
           touristGuide.nextPage();
@@ -72,10 +70,10 @@ var touristGuide = {
   },
   
   //makes json call
-  getJson: function () {
+  searchAPI: function () {
     $('#display').empty();
     $('#loadingImage').show();
-    $.getJSON(this.serviceUrl + '?callback=?', this.params(), function(topic) {
+    $.getJSON(this.searchUrl + '?callback=?', this.params(), function(topic) {
       console.log(topic);
       touristGuide.fixCursor(topic);
       var imageUrl = "", topicTitle = "", topicDesc = "";
@@ -88,7 +86,6 @@ var touristGuide = {
   //method to get topic
   getTopic: function (topicId) {
     $.getJSON(this.topicUrl + topicId + '?callback=?', null, function (topic) {
-      // console.log(topic);
       touristGuide.buildTopic(topic);
     });
   },
@@ -98,7 +95,7 @@ var touristGuide = {
       imageUrl = topic.property['/common/topic/image'].values[0].id;
       touristGuide.topicHTML = '<li class="clearfix"> <img src="https://usercontent.googleapis.com/freebase/v1/image' + imageUrl + '?maxwidth=225&maxheight=225&mode=fillcropmid">';
     } else {
-      touristGuide.topicHTML = '<li class="clearfix"> <img src="../img/location.PNG"';
+      touristGuide.topicHTML = '<li class="clearfix"> <img src="../img/location.PNG">';
     }
 
     if (topic.property['/type/object/name']) {
@@ -129,8 +126,7 @@ var touristGuide = {
     $('#nextPage').click(function(event) {
       event.preventDefault();
       touristGuide.setCursorValue(true);
-      touristGuide.getJson();
-      console.log(touristGuide.cursorValue);
+      touristGuide.searchAPI();
       $('#previousPage').show();
     });
   },
@@ -139,11 +135,10 @@ var touristGuide = {
     $('#previousPage').click(function (event) {
       event.preventDefault();
       touristGuide.setCursorValue(false);
-      touristGuide.getJson();
+      touristGuide.searchAPI();
       if (touristGuide.cursorValue === 0) {
         $('#previousPage').hide();
       }
-      console.log(touristGuide.cursorValue);
     });
   }
 };
