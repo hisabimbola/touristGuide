@@ -6,10 +6,12 @@ var touristGuide = {
   baseUrl: "https://www.freebase.com/",
   serviceUrl: 'https://www.googleapis.com/freebase/v1/search', //base endpoint for the search service
   topicUrl: 'https://www.googleapis.com/freebase/v1/topic', //base endpoint for the search service
+  cursorValue: 0,
 
   init: function() {
     $('#loadingImage').hide();    
     this.submitSearch();
+    touristGuide.nextPage();
 
   },
   //validates user input against symbols, allows only alp, numbers and _
@@ -32,10 +34,18 @@ var touristGuide = {
     'indent': true, //for nice indented JSON format, needed for development only
     // 'exact': true
     'limit': 10,
-    
+    'cursor': this.cursorValue
     };
   },
 
+  fixCursor: function(data) {
+    if (data.cursor) {
+      this.cursorValue += 10;
+    } else {
+      this.cursorValue = 0;
+      console.log('no cursor');
+    }
+  },
   //gets user input
   submitSearch: function () {
     // console.log('submitSearch');
@@ -51,9 +61,10 @@ var touristGuide = {
     $('#loadingImage').show();
     $.getJSON(this.serviceUrl + '?callback=?', this.params(), function(topic) {
       console.log(topic);
+      touristGuide.fixCursor(topic);
       var imageUrl = "", topicTitle = "", topicDesc = "";
       $.each(topic.result, function(i, val) {
-        touristGuide.getTopic(val.id);
+        touristGuide.getTopic(val.id || val.mid);
       });
     });
   },
@@ -90,6 +101,14 @@ var touristGuide = {
     // $(display).addClass('clearfix');
     $('#loadingImage').hide();
     $('#display').append(display);
+  },
+
+  nextPage: function () {
+    $('#nextPage').click(function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      touristGuide.getJson();
+    });
   }
 };
 
