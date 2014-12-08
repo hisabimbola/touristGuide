@@ -13,6 +13,19 @@ var touristGuide = {
 
   },
 
+  validateInput: function (input) {
+    // var input = $('#search').val();
+    console.log(input);
+    var test = /\W/.test(input);
+    console.log(test);
+    if (!test) {
+      console.log(test);
+      this.searchValue = input;
+      this.getJson();
+    } else {
+      $('#topInfo').text('Please enter a valid city or country name, numbers and symbols are not allowed!');
+    }
+  },
   //params in method, because searchValue depends on search from user
   params: function () {
    return { "domain": "travel",
@@ -27,19 +40,16 @@ var touristGuide = {
 
   //gets user input
   submitSearch: function () {
-    console.log('submitSearch');
+    // console.log('submitSearch');
     $('#app').submit(function (evt) {
       evt.preventDefault();
-      
-      touristGuide.searchValue = $('#search').val();
-      // console.log(touristGuide.searchValue);
-      $('#display').empty();
-      touristGuide.getJson();
+      touristGuide.validateInput($('#search').val());
     });
   },
 
   //makes json call
   getJson: function () {
+    $('#display').empty();
     $('#loadingImage').show();
     $.getJSON(this.serviceUrl + '?callback=?', this.params(), function(topic) {
       var imageUrl = "", topicTitle = "", topicDesc = "";
