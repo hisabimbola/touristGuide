@@ -41,9 +41,20 @@ var touristGuide = {
   fixCursor: function(data) {
     if (data.cursor) {
       this.cursorValue += 10;
+      console.log('next page');
     } else {
+      
+      console.log('reached else');
+      $('#nextPage').off('click');
+      console.log('clicked off');
+      $('#nextPage').on('click', function(event) {
+          /* Act on the event */
+          console.log('one more click');
+          event.preventDefault();
+          touristGuide.getJson();
+        $('#nextPage').hide();
+      });
       this.cursorValue = 0;
-      console.log('no cursor');
     }
   },
   //gets user input

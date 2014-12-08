@@ -92,7 +92,7 @@ main {
   width: 60%;
   margin: 0 auto;
   /*border: 1px solid;*/
-  background-color: #F865B0;
+  background-color: #B2675E;
   min-height: 100%;
   padding-top: 2%;
 }
@@ -135,7 +135,7 @@ main {
   display: block;
 /*   border: 1px solid cyan; */
   text-align: left;
-  margin-bottom: 2%;
+  margin: 4% 0 2% 0;
 }
 
 #display li h3 {
