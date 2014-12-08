@@ -64,7 +64,9 @@ var touristGuide = {
         console.log(touristGuide.cursorValue);
         touristGuide.getJson();
       // touristGuide.setCursorValue(false);
-        $('#nextPage').hide();
+        $('#nextPage').hide(function () {
+          touristGuide.nextPage();
+        });
       });
     }
   },
