@@ -1,3 +1,4 @@
+
 var touristGuide = {
 
   searchValue: null,
@@ -7,7 +8,9 @@ var touristGuide = {
   topicUrl: 'https://www.googleapis.com/freebase/v1/topic', //base endpoint for the search service
 
   init: function() {
+    $('#loadingImage').hide();    
     this.submitSearch();
+
   },
 
   //params in method, because searchValue depends on search from user
@@ -25,6 +28,7 @@ var touristGuide = {
     console.log('submitSearch');
     $('#app').submit(function (evt) {
       evt.preventDefault();
+      
       touristGuide.searchValue = $('#search').val();
       // console.log(touristGuide.searchValue);
       $('#display').empty();
@@ -34,6 +38,7 @@ var touristGuide = {
 
   //makes json call
   getJson: function () {
+    $('#loadingImage').show();
     $.getJSON(this.serviceUrl + '?callback=?', this.params(), function(topic) {
       var imageUrl = "", topicTitle = "", topicDesc = "";
       $.each(topic.result, function(i, val) {
@@ -55,7 +60,7 @@ var touristGuide = {
       imageUrl = topic.property['/common/topic/image'].values[0].id;
       touristGuide.topicHTML = '<li class="clearfix"> <img src="https://usercontent.googleapis.com/freebase/v1/image' + imageUrl + '?maxwidth=225&maxheight=225&mode=fillcropmid">';
     } else {
-      touristGuide.topicHTML = '<li class="clearfix">';
+      touristGuide.topicHTML = '<li class="clearfix"> <img src="../img/location.PNG"';
     }
 
     if (topic.property['/type/object/name']) {
@@ -72,6 +77,7 @@ var touristGuide = {
   //displays topic from JSON load into the page
   showTopic: function (display) {
     // $(display).addClass('clearfix');
+    $('#loadingImage').show();
     $('#display').append(display);
   }
 };
