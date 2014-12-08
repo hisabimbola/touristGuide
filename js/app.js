@@ -16,6 +16,7 @@ var touristGuide = {
   //params in method, because searchValue depends on search from user
   params: function () {
    return { "domain": "travel",
+   'key': 'AIzaSyAIoCIVP399FSK6l5imEndmTlxYdPC3JeE',
     'query': this.searchValue,
     'type': '/travel/tourist_attraction',
     'indent': true, //for nice indented JSON format, needed for development only
