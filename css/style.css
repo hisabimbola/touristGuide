@@ -89,6 +89,10 @@ main {
   padding-top: 2%;
 }
 
+main div {
+  margin-top: 6%;
+  
+}
 #topInfo {
   margin-bottom: 2%;
   font-weight: 700;
@@ -96,6 +100,7 @@ main {
 
 #app input {
   width: 45%;
+  margin-top: 3%;
   line-height: 2.5em;
   border: 1px solid rgba(0, 0, 0, 0.4);
   border-bottom-left-radius: 5px;

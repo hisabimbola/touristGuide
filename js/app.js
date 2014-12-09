@@ -74,7 +74,6 @@ var touristGuide = {
     $('#display').empty();
     $('#loadingImage').show();
     $.getJSON(this.searchUrl + '?callback=?', this.params(), function(topic) {
-      console.log(topic);
       touristGuide.fixCursor(topic);
       var imageUrl = "", topicTitle = "", topicDesc = "";
       $.each(topic.result, function(i, val) {
@@ -86,6 +85,7 @@ var touristGuide = {
   //method to get topic
   getTopic: function (topicId) {
     $.getJSON(this.topicUrl + topicId + '?callback=?', null, function (topic) {
+      console.log(topic);
       touristGuide.buildTopic(topic);
     });
   },
@@ -102,9 +102,9 @@ var touristGuide = {
       topicTitle = topic.property['/type/object/name'].values[0].text;
       touristGuide.topicHTML += '<h3>' + topicTitle + '</h3>';
     }
-    if (topic.property['/common/topic/description']) {
-      topicDesc = topic.property['/common/topic/description'].values[0].value;
-      touristGuide.topicHTML += '<p>' + topicDesc + '</p> </li> <hr />';
+    if (topic.property['/common/topic/article']) {
+      topicDesc = topic.property['/common/topic/article'].values[0].text;
+      touristGuide.topicHTML += '<p>' + topicDesc + '</p><p>Click here to read view full article</p> </li> <hr />';
     }
       touristGuide.showTopic(touristGuide.topicHTML);
   },
