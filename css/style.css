@@ -176,6 +176,21 @@ main div {
   color: #38298A;
 }
 
+#display div {
+  width: 70%;
+  margin: 0 auto;
+  font-weight: 600;
+}
+
+#errorMessage li {
+  margin: 2% 0;  
+}
+#errorMessage ul li {
+  font-weight: 400;
+  text-indent: 30px;
+  margin: 2% 0;
+}
+
 #pagination {
   margin: 4% auto;
 }

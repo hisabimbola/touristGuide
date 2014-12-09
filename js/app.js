@@ -16,17 +16,7 @@ var touristGuide = {
     touristGuide.previousPage();
     $('#nextPage').hide();
     $('#previousPage').hide();
-
-  },
-  //validates user input against symbols, allows only alp, numbers and _
-  validateInput: function (input) {
-    var test = /[^-_a-zA-Z ]/.test(input);
-    if (!test) {
-      this.searchValue = input;
-      this.searchAPI();
-    } else {
-      $('#topInfo').text('Please enter a valid city or country name, numbers and symbols are not allowed!');
-    }
+    $('#errorMessage').hide();
   },
   //params in method, because searchValue depends on search from user
   params: function () {
@@ -42,14 +32,25 @@ var touristGuide = {
     };
   },
 
+  //validates user input against symbols, allows only alp, numbers and _
+  validateInput: function (input) {
+    var test = /[^-_a-zA-Z ]/.test(input);
+    if (!test) {
+      this.searchValue = input;
+      this.searchAPI();
+    } else {
+      $('#topInfo').text('Please enter a valid city or country name, numbers and symbols are not allowed!');
+    }
+  },
+
   //set value for the set page, and disables next button, if no next page
 
   //gets user input
   submitSearch: function () {
     $('#app').submit(function (evt) {
       evt.preventDefault();
-    $('#nextPage').hide();
-    $('#previousPage').hide();
+      $('#nextPage').hide();
+      $('#previousPage').hide();
       touristGuide.barrelRoll();
       touristGuide.cursorValue = 0;
       window.setTimeout("touristGuide.validateInput($('#search').val())", 4000);
@@ -66,7 +67,6 @@ var touristGuide = {
       $('#nextPage').one('click', function(event) {
         event.preventDefault();
         touristGuide.searchAPI();
-      // touristGuide.setCursorValue(false);
         $('#nextPage').hide(function () {
           touristGuide.nextPage();
         });
@@ -91,11 +91,11 @@ var touristGuide = {
   checkResult: function (topic) {
     if (topic.result.length === 0) {
       $('#loadingImage').hide();
-      this.errorMessage += '<li> <p>No result found!!! </p>'; 
-      this.errorMessage += '<p>Your search may not be a valid city or country name, or your input is not in our database </p>'; 
-      this.errorMessage += '<p>Please Refine your search </p></li>';
-      $('#display').append(this.errorMessage);
+      $('#errorMessage').show();
+      $('#errorMessage').show();
+      console.log('after show');
     } else {
+      $('#errorMessage').hide();
       touristGuide.fixCursor(topic);
     }
   },
