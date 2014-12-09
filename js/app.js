@@ -7,6 +7,7 @@ var touristGuide = {
   searchUrl: 'https://www.googleapis.com/freebase/v1/search', //base endpoint for the search service
   topicUrl: 'https://www.googleapis.com/freebase/v1/topic', //base endpoint for the search service
   cursorValue: 0,
+  errorMessage: "",
 
   init: function() {
     $('#loadingImage').hide();    
@@ -47,6 +48,8 @@ var touristGuide = {
   submitSearch: function () {
     $('#app').submit(function (evt) {
       evt.preventDefault();
+    $('#nextPage').hide();
+    $('#previousPage').hide();
       touristGuide.barrelRoll();
       touristGuide.cursorValue = 0;
       window.setTimeout("touristGuide.validateInput($('#search').val())", 4000);
@@ -76,8 +79,8 @@ var touristGuide = {
     $('#display').empty();
     $('#loadingImage').show();
     $.getJSON(this.searchUrl + '?callback=?', this.params(), function(topic) {
-      // console.log(topic);
-      touristGuide.fixCursor(topic);
+      console.log(topic);
+      touristGuide.checkResult(topic);
       var imageUrl = "", topicTitle = "", topicDesc = "";
       $.each(topic.result, function(i, val) {
         touristGuide.getTopic(val.id || val.mid);
@@ -85,10 +88,22 @@ var touristGuide = {
     });
   },
 
+  checkResult: function (topic) {
+    if (topic.result.length === 0) {
+      $('#loadingImage').hide();
+      this.errorMessage += '<li> <p>No result found!!! </p>'; 
+      this.errorMessage += '<p>Your search may not be a valid city or country name, or your input is not in our database </p>'; 
+      this.errorMessage += '<p>Please Refine your search </p></li>';
+      $('#display').append(this.errorMessage);
+    } else {
+      touristGuide.fixCursor(topic);
+    }
+  },
+
   //method to get topic
   getTopic: function (topicId) {
     $.getJSON(this.topicUrl + topicId + '?callback=?', null, function (topic) {
-      console.log(topic);
+      // console.log(topic);
       touristGuide.buildTopic(topic);
     });
   },
