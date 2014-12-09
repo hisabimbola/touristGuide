@@ -47,8 +47,10 @@ var touristGuide = {
   submitSearch: function () {
     $('#app').submit(function (evt) {
       evt.preventDefault();
+      touristGuide.barrelRoll();
       touristGuide.cursorValue = 0;
-      touristGuide.validateInput($('#search').val());
+      // setTimeout(touristGuide.validateInput($('#search').val()), 4000);
+       touristGuide.validateInput($('#search').val()).delay(3000);
       // setCursorValue(true);
     });
   },
@@ -129,6 +131,12 @@ var touristGuide = {
       touristGuide.searchAPI();
       $('#previousPage').show();
     });
+  },
+
+  //adds a barrel roll effect when user clicks search button
+  barrelRoll: function () {
+    $('body').addClass('barrel_roll');
+    setTimeout("$('body').removeClass('barrel_roll')", 4000);
   },
 
   previousPage: function () {
