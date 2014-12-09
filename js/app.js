@@ -49,8 +49,8 @@ var touristGuide = {
       evt.preventDefault();
       touristGuide.barrelRoll();
       touristGuide.cursorValue = 0;
-      // setTimeout(touristGuide.validateInput($('#search').val()), 4000);
-       touristGuide.validateInput($('#search').val()).delay(3000);
+      window.setTimeout("touristGuide.validateInput($('#search').val())", 4000);
+       // touristGuide.validateInput($('#search').val());
       // setCursorValue(true);
     });
   },
@@ -76,6 +76,7 @@ var touristGuide = {
     $('#display').empty();
     $('#loadingImage').show();
     $.getJSON(this.searchUrl + '?callback=?', this.params(), function(topic) {
+      // console.log(topic);
       touristGuide.fixCursor(topic);
       var imageUrl = "", topicTitle = "", topicDesc = "";
       $.each(topic.result, function(i, val) {
@@ -136,7 +137,7 @@ var touristGuide = {
   //adds a barrel roll effect when user clicks search button
   barrelRoll: function () {
     $('body').addClass('barrel_roll');
-    setTimeout("$('body').removeClass('barrel_roll')", 4000);
+    window.setTimeout("$('body').removeClass('barrel_roll')", 4000);
   },
 
   previousPage: function () {
