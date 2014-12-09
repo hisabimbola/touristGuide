@@ -176,7 +176,7 @@ main div {
   color: #38298A;
 }
 
-#display div {
+#errorMessage {
   width: 70%;
   margin: 0 auto;
   font-weight: 600;

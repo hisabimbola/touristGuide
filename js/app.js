@@ -76,6 +76,7 @@ var touristGuide = {
   
   //makes json call
   searchAPI: function () {
+    // $errorMsg = $('#errorMessage').html();
     $('#display').empty();
     $('#loadingImage').show();
     $.getJSON(this.searchUrl + '?callback=?', this.params(), function(topic) {
@@ -91,9 +92,12 @@ var touristGuide = {
   checkResult: function (topic) {
     if (topic.result.length === 0) {
       $('#loadingImage').hide();
+      // // $($errorMsg).html();
+      // $errorContainer = ""
+      // $errorContainer.add('div');
+
+      // console.log($errorContainer);
       $('#errorMessage').show();
-      $('#errorMessage').show();
-      console.log('after show');
     } else {
       $('#errorMessage').hide();
       touristGuide.fixCursor(topic);
